@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="arrLanguage">
+        <item>English</item>
+        <item>Portuguese</item>
+        <item>Tiếng Việt</item>
+        <item>Русский</item>
+        <item>Français</item>
+        <item>العربية</item>
+        <item>Español</item>
+        <item>Indonesia</item>
+    </array>
+</resources>

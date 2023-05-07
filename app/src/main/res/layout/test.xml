@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:background="@drawable/bg_gradient_splash"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="31dp"
+            android:layout_below="@+id/im_scan_bg"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="@string/analyzing"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="invisible" />
+
+        <RelativeLayout
+            android:id="@+id/lv_activate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp">
+
+            <ImageView
+                android:id="@+id/im_scan_bg2"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_scan_image" />
+
+            <com.skyfishjy.library.RippleBackground
+                android:id="@+id/im_scan_bg"
+                android:layout_width="210dp"
+                android:layout_height="210dp"
+                android:layout_centerInParent="true"
+                app:rb_color="#fcfeff"
+                app:rb_duration="3000"
+                app:rb_radius="36dp"
+                app:rb_rippleAmount="3"
+                app:rb_scale="3">
+
+                <ImageButton
+                    android:id="@+id/btnScan"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/round_shape" />
+
+                <com.romainpiel.shimmer.ShimmerTextView
+                    android:id="@+id/stvScan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/scan"
+                    android:textAllCaps="true"
+                    android:textColor="#ff4081"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/ivSearch"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/searchicon" />
+            </com.skyfishjy.library.RippleBackground>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffefefef"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/imageSliderCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="6dp">
+
+                <com.smarteist.autoimageslider.SliderView
+                    android:id="@+id/imageSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    app:sliderAnimationDuration="800"
+                    app:sliderAutoCycleDirection="back_and_forth"
+                    app:sliderAutoCycleEnabled="true"
+                    app:sliderIndicatorAnimationDuration="800"
+                    app:sliderIndicatorGravity="center"
+                    app:sliderIndicatorMargin="15dp"
+                    app:sliderIndicatorOrientation="horizontal"
+                    app:sliderIndicatorPadding="3dp"
+                    app:sliderIndicatorRadius="2dp"
+                    app:sliderIndicatorSelectedColor="#5a5a5a"
+                    app:sliderIndicatorUnselectedColor="#fff"
+                    app:sliderScrollTimeInSec="1"
+                    app:sliderStartAutoCycle="true" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvImage"
+                style="@style/MainOptionStyle"
+                android:layout_marginTop="8dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout style="@style/HorizontalLinearStyle">
+
+                    <RelativeLayout
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            style="@style/MainOptionImageStyle"
+                            android:background="#ff5252"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/image_row"
+                            app:tint="@color/white" />
+                    </RelativeLayout>
+
+                    <LinearLayout style="@style/MainOptionLayoutStyle">
+
+                        <TextView
+                            style="@style/MainOptionTitleStyle"
+                            android:text="@string/photo_recovery" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvVideo"
+                style="@style/MainOptionStyle"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout style="@style/HorizontalLinearStyle">
+
+                    <RelativeLayout
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            style="@style/MainOptionImageStyle"
+                            android:background="#7c4dff"
+                            android:src="@drawable/video_row"
+                            app:tint="@color/white" />
+                    </RelativeLayout>
+
+                    <LinearLayout style="@style/MainOptionLayoutStyle">
+
+                        <TextView
+                            style="@style/MainOptionTitleStyle"
+                            android:text="@string/video_recovery" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvAudio"
+                style="@style/MainOptionStyle"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout style="@style/HorizontalLinearStyle">
+
+                    <RelativeLayout
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            style="@style/MainOptionImageStyle"
+                            android:background="#ff4081"
+                            android:src="@drawable/audio_row"
+                            app:tint="@color/white" />
+                    </RelativeLayout>
+
+                    <LinearLayout style="@style/MainOptionLayoutStyle">
+
+                        <TextView
+                            style="@style/MainOptionTitleStyle"
+                            android:text="@string/audio_recovery" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvSetting"
+                style="@style/MainOptionStyle"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout style="@style/HorizontalLinearStyle">
+
+                    <RelativeLayout
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            style="@style/MainOptionImageStyle"
+                            android:background="#40c4ff"
+                            android:src="@drawable/settings_row"
+                            app:tint="@color/white" />
+                    </RelativeLayout>
+
+                    <LinearLayout style="@style/MainOptionLayoutStyle">
+
+                        <TextView
+                            style="@style/MainOptionTitleStyle"
+                            android:text="@string/setting" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

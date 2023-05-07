@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/album_card"
+    android:layout_width="wrap_content"
+    android:layout_height="200dp"
+    android:foreground="@drawable/ripple"
+    app:cardCornerRadius="@dimen/zero"
+    app:cardElevation="@dimen/card_elevation">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/header_album_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:scrollbars="none" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_card_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:fontFamily="@font/roboto_regular"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/alternate_margin"
+                    android:paddingLeft="@dimen/alternate_margin"
+                    android:paddingTop="@dimen/alternate_margin"
+                    android:paddingEnd="@dimen/sub_big_spacing"
+                    android:paddingRight="@dimen/sub_big_spacing"
+                    android:text="Chao be "
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/medium_text" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/alternate_padding"
+                    android:paddingEnd="@dimen/alternate_padding"
+                    android:paddingBottom="@dimen/alternate_padding"
+                    android:text="10"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/sub_medium_text" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
