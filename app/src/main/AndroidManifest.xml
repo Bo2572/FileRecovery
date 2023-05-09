@@ -17,24 +17,33 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.filerecovery.photorecovery.ui.activity.NoFileActiviy" />
-        <activity android:name="com.filerecovery.photorecovery.ui.activity.MainActivity" />
-        <activity android:name="com.filerecovery.photorecovery.ui.activity.RestoreResultActivity" />
-        <activity android:name="com.filerecovery.photorecovery.model.modul.recoveryphoto.AlbumPhotoActivity" />
-        <activity android:name="com.filerecovery.photorecovery.model.modul.recoveryvideo.AlbumVideoActivity" />
-        <activity android:name="com.filerecovery.photorecovery.model.modul.recoveryaudio.AlbumAudioActivity" />
-        <activity android:name="com.filerecovery.photorecovery.model.modul.recoveryphoto.PhotosActivity" />
-        <activity android:name="com.filerecovery.photorecovery.model.modul.recoveryaudio.AudioActivity" />
-        <activity android:name="com.filerecovery.photorecovery.model.modul.recoveryvideo.VideoActivity" />
-        <activity android:name="com.filerecovery.photorecovery.model.modul.recoveryvideo.FileInfoActivity" />
+
         <activity
-            android:name="com.filerecovery.photorecovery.ui.activity.HelpActivity"
+            android:name="com.filerecovery.photorecovery.ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.filerecovery.photorecovery.ui.activity.NoFileActiviy" />
+
+        <activity android:name="com.filerecovery.photorecovery.ui.activity.RestoreResultActivity" />
+
+        <activity android:name="com.filerecovery.photorecovery.model.modul.recoveryphoto.AlbumPhotoActivity" />
+
+        <activity android:name="com.filerecovery.photorecovery.model.modul.recoveryvideo.AlbumVideoActivity" />
+
+        <activity android:name="com.filerecovery.photorecovery.model.modul.recoveryaudio.AlbumAudioActivity" />
+
+        <activity android:name="com.filerecovery.photorecovery.model.modul.recoveryphoto.PhotosActivity" />
+
+        <activity android:name="com.filerecovery.photorecovery.model.modul.recoveryaudio.AudioActivity" />
+
+        <activity android:name="com.filerecovery.photorecovery.model.modul.recoveryvideo.VideoActivity" />
+
+        <activity android:name="com.filerecovery.photorecovery.model.modul.recoveryvideo.FileInfoActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

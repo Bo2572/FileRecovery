@@ -59,7 +59,6 @@ import java.util.regex.Pattern;
 import org.apache.commons.io.IOUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final int REQUEST_PERMISSIONS = 100;
     public static ArrayList<AlbumAudio> mAlbumAudio = new ArrayList<>();
     public static ArrayList<AlbumPhoto> mAlbumPhoto = new ArrayList<>();
     public static ArrayList<AlbumVideo> mAlbumVideo = new ArrayList<>();
@@ -69,13 +68,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     CardView cvImage;
     CardView cvVideo;
     ScanAsyncTask mScanAsyncTask;
-    private ArrayList<SliderItem> mSliderItems = new ArrayList<>();
     RippleBackground rippleBackground;
     TextView tvNumber;
 
-    CardView cvRate;
-    CardView cvShare;
-    CardView cvPP;
+    AlertDialog dialog;
+    Button ok_click;
 
     public void intData() {
     }
@@ -83,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView((int) R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         intView();
         intData();
         intEvent();
@@ -91,36 +88,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
-    public void requestPermission() {
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), "android.permission.WRITE_EXTERNAL_STORAGE") == 0 || ContextCompat.checkSelfPermission(getApplicationContext(), "android.permission.READ_EXTERNAL_STORAGE") == 0) {
-            File file = new File(Utils.getPathSave(this, "RestoreAudio"));
-            if (!file.exists()) {
-                file.mkdirs();
-            }
-            File file2 = new File(Utils.getPathSave(this, "RestoreVideo"));
-            if (!file2.exists()) {
-                file2.mkdirs();
-            }
-            File file3 = new File(Utils.getPathSave(this, "RestorePhoto"));
-            if (!file3.exists()) {
-                file3.mkdirs();
-            }
-        } else if (!ActivityCompat.shouldShowRequestPermissionRationale(this, "android.permission.WRITE_EXTERNAL_STORAGE") || !ActivityCompat.shouldShowRequestPermissionRationale(this, "android.permission.READ_EXTERNAL_STORAGE")) {
-            ActivityCompat.requestPermissions(this, new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"}, 100);
-        }
-    }
-
     public void intView() {
-        this.btnScan = (ImageButton) findViewById(R.id.btnScan);
-        this.tvNumber = (TextView) findViewById(R.id.tvNumber);
-        this.rippleBackground = (RippleBackground) findViewById(R.id.im_scan_bg);
-        this.cvImage = (CardView) findViewById(R.id.cvImage);
-        this.cvAudio = (CardView) findViewById(R.id.cvAudio);
-        this.cvVideo = (CardView) findViewById(R.id.cvVideo);
-        this.cvRate = (CardView) findViewById(R.id.rateapp);
-        this.cvShare = (CardView) findViewById(R.id.shareapp);
-        this.cvPP = (CardView) findViewById(R.id.privacy);
+        this.btnScan = findViewById(R.id.btnScan);
+        this.tvNumber = findViewById(R.id.tvNumber);
+        this.rippleBackground = findViewById(R.id.im_scan_bg);
+        this.cvImage = findViewById(R.id.cvImage);
+        this.cvAudio = findViewById(R.id.cvAudio);
+        this.cvVideo = findViewById(R.id.cvVideo);
 
     }
 
@@ -128,9 +102,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.cvImage.setOnClickListener(this);
         this.cvAudio.setOnClickListener(this);
         this.cvVideo.setOnClickListener(this);
-        this.cvRate.setOnClickListener(this);
-        this.cvShare.setOnClickListener(this);
-        this.cvPP.setOnClickListener(this);
 
     }
 
@@ -146,60 +117,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.cvVideo:
                 scanType(1);
                 return;
-            case R.id.rateapp:
-                rateapp();
-
-                return;
-            case R.id.shareapp:
-                shareapp();
-
-                return;
-            case R.id.privacy:
-                privacy();
-                return;
-
             default:
                 return;
         }
     }
-
-    void privacy() {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse("https://www.google.com/"));
-        startActivity(i);
-
-    }
-
-    void shareapp() {
-        try {
-            Intent i = new Intent(Intent.ACTION_SEND);
-            i.setType("text/plain");
-            String sAux = "\n Recovery File\n\n";
-            sAux = sAux
-                    + "https://play.google.com/store/apps/details?id="
-                    + getPackageName() + "\n\n";
-            i.putExtra(Intent.EXTRA_TEXT, sAux);
-            startActivity(Intent.createChooser(i, "choose one"));
-        } catch (Exception back5) {
-        }
-
-    }
-
-    void rateapp() {
-
-        Intent rate = new Intent("android.intent.action.VIEW", Uri
-                .parse("market://details?id=" + getPackageName()));
-        try {
-            startActivity(rate);
-
-        } catch (ActivityNotFoundException back5) {
-            Toast.makeText(
-                    MainActivity.this,
-                    "You don't have Google Play installed or Internet connection",
-                    Toast.LENGTH_SHORT).show();
-        }
-    }
-
 
     public void scanType(int i) {
         ScanAsyncTask scanAsyncTask = this.mScanAsyncTask;
@@ -211,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.tvNumber.setText(getString(R.string.analyzing));
             this.rippleBackground.startRippleAnimation();
             this.mScanAsyncTask = new ScanAsyncTask(i);
-            this.mScanAsyncTask.execute(new Void[0]);
+            this.mScanAsyncTask.execute();
             return;
         }
         Toast.makeText(this, getString(R.string.scan_wait), Toast.LENGTH_LONG).show();
@@ -268,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onProgressUpdate(Integer... numArr) {
             super.onProgressUpdate(numArr);
             TextView textView = MainActivity.this.tvNumber;
-            textView.setText("Files: " + String.valueOf(numArr[0]));
+            textView.setText("Files: " + numArr[0]);
         }
 
         public Void doInBackground(Void... voidArr) {
@@ -368,17 +289,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String path2 = fileArr2[i2].getPath();
                             long lastModified = file.lastModified();
                             i = i2;
-                            PhotoModel photoModel2 = new PhotoModel(path2, lastModified, (long) parseInt);
+                            PhotoModel photoModel2 = new PhotoModel(path2, lastModified, parseInt);
                             arrayList.add(photoModel2);
                             this.number++;
-                            publishProgress(new Integer[]{Integer.valueOf(this.number)});
+                            publishProgress(Integer.valueOf(this.number));
                         } else {
                             i = i2;
                             int parseInt2 = Integer.parseInt(String.valueOf(file.length()));
                             if (parseInt2 > 1000) {
-                                this.listPhoto.add(new PhotoModel(fileArr2[i].getPath(), file.lastModified(), (long) parseInt2));
+                                this.listPhoto.add(new PhotoModel(fileArr2[i].getPath(), file.lastModified(), parseInt2));
                                 this.number++;
-                                publishProgress(new Integer[]{Integer.valueOf(this.number)});
+                                publishProgress(Integer.valueOf(this.number));
                                 i2 = i + 1;
                                 z = false;
                             }
@@ -462,7 +383,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             VideoModel videoModel2 = new VideoModel(fileArr2[i].getPath(), file.lastModified(), file.length(), substring, Utils.convertDuration(j));
                             arrayList.add(videoModel2);
                             this.number++;
-                            publishProgress(new Integer[]{Integer.valueOf(this.number)});
+                            publishProgress(Integer.valueOf(this.number));
                         }
                     }
                 }
@@ -508,9 +429,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     File file = new File(fileArr[i].getPath());
                     if (!contains && isAudioFile(file) && (parseInt = Integer.parseInt(String.valueOf(file.length()))) > 10000) {
-                        this.listAudio.add(new AudioModel(fileArr[i].getPath(), file.lastModified(), (long) parseInt));
+                        this.listAudio.add(new AudioModel(fileArr[i].getPath(), file.lastModified(), parseInt));
                         this.number++;
-                        publishProgress(new Integer[]{Integer.valueOf(this.number)});
+                        publishProgress(Integer.valueOf(this.number));
                     }
                 }
             }
@@ -570,21 +491,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void showNotFoundDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage((CharSequence) getString(R.string.not_found_audio));
-        builder.setPositiveButton((CharSequence) getString(17039370), (DialogInterface.OnClickListener) new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        AlertDialog create = builder.create();
-        if (!isFinishing()) {
-            create.show();
-        }
-    }
-
-
     public String[] getExternalStorageDirectories() {
         File[] externalFilesDirs;
         String[] split;
@@ -609,7 +515,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (arrayList.isEmpty()) {
             String str2 = "";
             try {
-                Process start = new ProcessBuilder(new String[0]).command(new String[]{"mount | grep /dev/block/vold"}).redirectErrorStream(true).start();
+                Process start = new ProcessBuilder().command("mount | grep /dev/block/vold").redirectErrorStream(true).start();
                 start.waitFor();
                 InputStream inputStream = start.getInputStream();
                 byte[] bArr = new byte[1024];
@@ -656,18 +562,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             if (!this.arrPermission.isEmpty()) {
-                requestPermissions((String[]) this.arrPermission.toArray(new String[0]), 100);
+                requestPermissions(this.arrPermission.toArray(new String[0]), 100);
             } else {
                 MangeFile();
 
             }
         }
     }
-
-    AlertDialog dialog;
-
-    Button ok_click;
-
 
     void Show_Diloge(Context con) {
         View alertCustomdialog = LayoutInflater.from(con).inflate(R.layout.mange_file_dialog, null);
@@ -732,19 +633,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void goURL(String str) {
-        Matcher matcher = Pattern.compile("(?<=watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*").matcher(str);
-        if (!matcher.find()) {
-            String group = matcher.group();
-            Intent intent = new Intent("android.intent.action.VIEW", Uri.parse("vnd.youtube:" + group));
-            Intent intent2 = new Intent("android.intent.action.VIEW", Uri.parse("http://www.youtube.com/watch?v=" + group));
-            try {
-                startActivity(intent);
-            } catch (ActivityNotFoundException unused) {
-                startActivity(intent2);
-            }
-        } else {
-            startActivity(new Intent("android.intent.action.VIEW", Uri.parse(str)));
-        }
-    }
 }

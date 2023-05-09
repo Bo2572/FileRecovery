@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PhotoFileRecovery.iml" filepath="$PROJECT_DIR$/.idea/modules/PhotoFileRecovery.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PhotoFileRecovery.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PhotoFileRecovery.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FileRecovery.iml" filepath="$PROJECT_DIR$/.idea/modules/FileRecovery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/FileRecovery.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/FileRecovery.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/FileRecovery.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/FileRecovery.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/FileRecovery.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/FileRecovery.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/FileRecovery.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/FileRecovery.app.unitTest.iml" />
     </modules>
   </component>
 </project>
